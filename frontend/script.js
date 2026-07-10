@@ -120,6 +120,8 @@ function deleteChat(index) {
     currentChat = null;
 
     showWelcome();
+  } else if (currentChat > index) {
+    currentChat--;
   }
 
   save();
@@ -190,27 +192,6 @@ function updateTitle() {
   if (messages.length === 1) {
     chats[currentChat].title = messages[0].text.substring(0, 25);
   }
-}
-
-function showWelcome() {
-  chat.innerHTML = `
-
-<div class="welcome">
-
-<div class="big-orb"></div>
-
-<h1>
-Where should we begin?
-</h1>
-
-
-<p>
-Ask anything and Aria will help you.
-</p>
-
-</div>
-
-`;
 }
 
 newChat.onclick = () => {
