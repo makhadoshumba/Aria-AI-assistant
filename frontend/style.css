@@ -346,3 +346,30 @@ input:focus {
   text-align: center;
   line-height: 1.55;
 }
+
+.history {
+  margin-top: 15px;
+
+  max-height: calc(100vh - 260px);
+
+  overflow-y: auto;
+
+  padding-right: 5px;
+}
+
+.history::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history::-webkit-scrollbar-thumb {
+  background: #33333b;
+  border-radius: 10px;
+}
+
+.history::-webkit-scrollbar-thumb:hover {
+  background: #6d5ae6;
+}
