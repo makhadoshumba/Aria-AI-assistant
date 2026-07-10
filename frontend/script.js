@@ -123,9 +123,14 @@ function openChat(index) {
 
   chat.innerHTML = "";
 
-  chats[index].messages.forEach((msg) => {
-    addMessage(msg.sender, msg.text, false);
-  });
+  // Check if this chat has no messages
+  if (chats[index].messages.length === 0) {
+    showWelcome();
+  } else {
+    chats[index].messages.forEach((msg) => {
+      addMessage(msg.sender, msg.text, false);
+    });
+  }
 
   renderHistory();
 }
