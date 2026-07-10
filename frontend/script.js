@@ -146,9 +146,6 @@ send.onclick = () => {
 
   input.value = "";
 
-  // TEMP AI RESPONSE
-  // Later replaced with AWS Lambda + Llama
-
   setTimeout(() => {
     addMessage(
       "ai",
