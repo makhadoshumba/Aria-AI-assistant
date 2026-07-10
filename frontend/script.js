@@ -9,6 +9,26 @@ let chats = JSON.parse(localStorage.getItem("chats")) || [];
 
 let currentChat = null;
 
+function showWelcome() {
+  chat.innerHTML = `
+
+    <div class="welcome">
+
+        <div class="big-orb"></div>
+
+        <h1>
+            Where should we begin?
+        </h1>
+
+        <p>
+            Ask anything and Aria will help you.
+        </p>
+
+    </div>
+
+    `;
+}
+
 function save() {
   localStorage.setItem("chats", JSON.stringify(chats));
 }
@@ -95,7 +115,7 @@ function createChat() {
 
   renderHistory();
 
-  openChat(0);
+  showWelcome();
 }
 
 function openChat(index) {
