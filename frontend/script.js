@@ -1,3 +1,4 @@
+const API_URL = "YOUR_CLOUDFLARE_WORKER_URL";
 const history = document.getElementById("history");
 const chat = document.getElementById("chat");
 
