@@ -28,11 +28,9 @@ body {
   left: 0;
   top: 0;
   width: 260px;
-
+  height: 100vh;
   background: #18181c;
-
   border-right: 1px solid #2b2b32;
-
   padding: 20px;
 }
 
@@ -372,4 +370,21 @@ input:focus {
 
 .history::-webkit-scrollbar-thumb:hover {
   background: #6d5ae6;
+}
+
+.message {
+  max-width: 70%;
+  padding: 12px 16px;
+  margin-bottom: 15px;
+}
+
+.user {
+  background: #6d5ae6;
+  margin-left: auto;
+}
+
+.ai {
+  background: #202026;
+  border: 1px solid #333;
+  margin-right: auto;
 }
