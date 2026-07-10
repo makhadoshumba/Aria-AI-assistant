@@ -234,11 +234,10 @@ send.onclick = () => {
 
   // TEMP RESPONSE
 
-  setTimeout(() => {
-    addMessage(
-      "ai",
-      "I am Aria. Soon I will connect to Llama through Cloudflare Workers.",
-    );
+  setTimeout(async () => {
+    const reply = await sendToAI(text);
+
+    addMessage("ai", reply);
   }, 500);
 };
 
