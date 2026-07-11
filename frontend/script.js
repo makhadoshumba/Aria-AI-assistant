@@ -198,7 +198,7 @@ newChat.onclick = () => {
   createChat();
 };
 
-send.onclick = () => {
+send.onclick = async () => {
   let text = input.value.trim();
 
   if (!text) return;
@@ -212,14 +212,21 @@ send.onclick = () => {
   addMessage("user", text);
 
   input.value = "";
+  const loadingMessage = document.createElement("div");
 
-  // TEMP RESPONSE
+  loadingMessage.className = "message ai loading";
 
-  setTimeout(async () => {
-    const reply = await sendToAI(text);
+  loadingMessage.innerText = "Aria is thinking...";
 
-    addMessage("ai", reply);
-  }, 500);
+  chat.appendChild(loadingMessage);
+
+  chat.scrollTop = chat.scrollHeight;
+
+  const reply = await sendToAI(text);
+
+  loadingMessage.remove();
+
+  addMessage("ai", reply);
 };
 
 input.addEventListener("keydown", (e) => {
@@ -229,3 +236,17 @@ input.addEventListener("keydown", (e) => {
 });
 
 renderHistory();
+
+function showLoading() {
+  const div = document.createElement("div");
+
+  div.className = "message ai loading";
+
+  div.innerText = "Aria is thinking...";
+
+  chat.appendChild(div);
+
+  chat.scrollTop = chat.scrollHeight;
+
+  return div;
+}
