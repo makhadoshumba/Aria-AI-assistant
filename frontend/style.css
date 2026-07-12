@@ -406,3 +406,144 @@ input:focus {
 #chat::-webkit-scrollbar-thumb:hover {
   background: #6d5ae6;
 }
+
+/* ============================= */
+/* MOBILE RESPONSIVENESS         */
+/* ============================= */
+
+/* Tablets and small laptops */
+@media (max-width: 900px) {
+  .sidebar {
+    width: 220px;
+    padding: 16px;
+  }
+
+  #chat {
+    padding: 20px;
+  }
+
+  .message {
+    max-width: 80%;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 700px) {
+  .app {
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    max-height: 45vh;
+    border-right: none;
+    border-bottom: 1px solid #2b2b32;
+    padding: 14px;
+  }
+
+  .history {
+    margin-top: 10px;
+  }
+
+  .main {
+    flex: 1;
+    min-height: 0;
+  }
+
+  header {
+    height: 50px;
+    padding: 0 16px;
+  }
+
+  header span {
+    font-size: 12px;
+  }
+
+  #chat {
+    padding: 16px;
+  }
+
+  .welcome h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .welcome p {
+    text-align: center;
+    padding: 0 10px;
+  }
+
+  .big-orb {
+    width: 50px;
+    height: 50px;
+  }
+
+  .message {
+    max-width: 90%;
+    font-size: 14px;
+  }
+
+  .input-container {
+    padding: 12px;
+  }
+
+  input {
+    width: 80%;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+
+  #send {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 420px) {
+  .sidebar {
+    max-height: 40vh;
+    padding: 12px;
+  }
+
+  .new-chat {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .sidebar h4 {
+    margin-top: 20px;
+    font-size: 12px;
+  }
+
+  .history-item {
+    padding: 10px;
+  }
+
+  .welcome h1 {
+    font-size: 20px;
+  }
+
+  .welcome p {
+    font-size: 13px;
+  }
+
+  .message {
+    max-width: 95%;
+    padding: 10px 12px;
+  }
+
+  input {
+    width: 75%;
+    padding: 10px 12px;
+  }
+
+  #send {
+    width: 38px;
+    height: 38px;
+    margin-left: 8px;
+  }
+}
