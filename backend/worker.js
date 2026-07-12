@@ -6,7 +6,6 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // Handle browser preflight request
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: corsHeaders,
@@ -37,6 +36,7 @@ export default {
 
           headers: {
             Authorization: `Bearer ${env.GROQ_API_KEY}`,
+
             "Content-Type": "application/json",
           },
 
@@ -60,6 +60,21 @@ export default {
 
       const data = await response.json();
 
+      console.log(data);
+
+      if (!response.ok) {
+        return Response.json(
+          {
+            error: "Groq API Error",
+            details: data,
+          },
+          {
+            status: 500,
+            headers: corsHeaders,
+          },
+        );
+      }
+
       return Response.json(
         {
           reply: data.choices[0].message.content,
@@ -69,12 +84,14 @@ export default {
         },
       );
     } catch (error) {
+      console.log(error);
+
       return Response.json(
         {
-          reply: "Aria is currently unavailable.",
           error: error.message,
         },
         {
+          status: 500,
           headers: corsHeaders,
         },
       );
