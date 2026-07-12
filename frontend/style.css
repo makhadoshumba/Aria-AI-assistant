@@ -390,19 +390,19 @@ input:focus {
   overflow-y: auto;
 }
 
-.history::-webkit-scrollbar {
+.main::-webkit-scrollbar {
   width: 6px;
 }
 
-.history::-webkit-scrollbar-track {
+.main::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.history::-webkit-scrollbar-thumb {
+.main::-webkit-scrollbar-thumb {
   background: #33333b;
   border-radius: 10px;
 }
 
-.history::-webkit-scrollbar-thumb:hover {
+.main::-webkit-scrollbar-thumb:hover {
   background: #6d5ae6;
 }
