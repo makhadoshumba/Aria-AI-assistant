@@ -390,19 +390,19 @@ input:focus {
   overflow-y: auto;
 }
 
-.main::-webkit-scrollbar {
+#chat::-webkit-scrollbar {
   width: 6px;
 }
 
-.main::-webkit-scrollbar-track {
+#chat::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.main::-webkit-scrollbar-thumb {
+#chat::-webkit-scrollbar-thumb {
   background: #33333b;
   border-radius: 10px;
 }
 
-.main::-webkit-scrollbar-thumb:hover {
+#chat::-webkit-scrollbar-thumb:hover {
   background: #6d5ae6;
 }
