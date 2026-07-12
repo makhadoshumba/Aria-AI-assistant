@@ -6,12 +6,14 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
+    // Handle browser preflight request
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: corsHeaders,
       });
     }
 
+    // Health check
     if (request.method !== "POST") {
       return Response.json(
         {
@@ -29,7 +31,22 @@ export default {
 
       const userMessage = body.message;
 
-      const response = await fetch(
+      if (!userMessage) {
+        return Response.json(
+          {
+            error: "Message is required",
+          },
+          {
+            status: 400,
+            headers: corsHeaders,
+          },
+        );
+      }
+
+      console.log("Sending request to Groq...");
+      console.log("API Key exists:", !!env.GROQ_API_KEY);
+
+      const groqResponse = await fetch(
         "https://api.groq.com/openai/v1/chat/completions",
         {
           method: "POST",
@@ -58,18 +75,19 @@ export default {
         },
       );
 
-      const data = await response.json();
+      const data = await groqResponse.json();
 
-      console.log(data);
+      console.log("Groq response:", data);
 
-      if (!response.ok) {
+      // Handle Groq errors
+      if (!groqResponse.ok) {
         return Response.json(
           {
-            error: "Groq API Error",
+            error: "Groq API error",
             details: data,
           },
           {
-            status: 500,
+            status: groqResponse.status,
             headers: corsHeaders,
           },
         );
@@ -84,7 +102,7 @@ export default {
         },
       );
     } catch (error) {
-      console.log(error);
+      console.log("Worker error:", error);
 
       return Response.json(
         {
