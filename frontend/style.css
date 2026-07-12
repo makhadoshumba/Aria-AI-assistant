@@ -383,3 +383,26 @@ input:focus {
   opacity: 0.7;
   font-style: italic;
 }
+
+.history {
+  margin-top: 15px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.history::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.history::-webkit-scrollbar-thumb {
+  background: #33333b;
+  border-radius: 10px;
+}
+
+.history::-webkit-scrollbar-thumb:hover {
+  background: #6d5ae6;
+}
