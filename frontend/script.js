@@ -1,4 +1,4 @@
-const API_URL = "YOUR_CLOUDFLARE_WORKER_URL";
+const API_URL = "http://127.0.0.1:8787";
 const history = document.getElementById("history");
 const chat = document.getElementById("chat");
 

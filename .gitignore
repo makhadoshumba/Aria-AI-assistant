@@ -1,0 +1,13 @@
+# Node
+node_modules/
+
+# Environment variables
+.env
+.env.*
+
+# Cloudflare
+.wrangler/
+
+# OS files
+.DS_Store
+Thumbs.db
