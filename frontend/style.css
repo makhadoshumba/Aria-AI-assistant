@@ -391,7 +391,7 @@ input:focus {
 }
 
 #chat::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 #chat::-webkit-scrollbar-track {
