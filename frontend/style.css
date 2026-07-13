@@ -411,7 +411,7 @@ input:focus {
 /* MOBILE RESPONSIVENESS         */
 /* ============================= */
 
-/* Tablets and small laptops */
+/* Tablets */
 @media (max-width: 900px) {
   .sidebar {
     width: 220px;
@@ -427,140 +427,39 @@ input:focus {
   }
 }
 
-/* Mobile devices */
-@media (max-width: 700px) {
-  .app {
-    flex-direction: column;
-    height: 100vh;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: auto;
-    max-height: 45vh;
-    border-right: none;
-    border-bottom: 1px solid #2b2b32;
-    padding: 14px;
-  }
-
-  .history {
-    margin-top: 10px;
-  }
-
-  .main {
-    flex: 1;
-    min-height: 0;
-  }
-
-  header {
-    height: 50px;
-    padding: 0 16px;
-  }
-
-  header span {
-    font-size: 12px;
-  }
-
-  #chat {
-    padding: 16px;
-  }
-
-  .welcome h1 {
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .welcome p {
-    text-align: center;
-    padding: 0 10px;
-  }
-
-  .big-orb {
-    width: 50px;
-    height: 50px;
-  }
-
-  .message {
-    max-width: 90%;
-    font-size: 14px;
-  }
-
-  .input-container {
-    padding: 12px;
-  }
-
-  input {
-    width: 80%;
-    padding: 12px 14px;
-    font-size: 14px;
-  }
-
-  #send {
-    width: 42px;
-    height: 42px;
-    font-size: 18px;
-  }
-}
-
-/* Small phones */
-@media (max-width: 420px) {
-  .sidebar {
-    max-height: 40vh;
-    padding: 12px;
-  }
-
-  .new-chat {
-    padding: 10px;
-    font-size: 14px;
-  }
-
-  .sidebar h4 {
-    margin-top: 20px;
-    font-size: 12px;
-  }
-
-  .history-item {
-    padding: 10px;
-  }
-
-  .welcome h1 {
-    font-size: 20px;
-  }
-
-  .welcome p {
-    font-size: 13px;
-  }
-
-  .message {
-    max-width: 95%;
-    padding: 10px 12px;
-  }
-
-  input {
-    width: 75%;
-    padding: 10px 12px;
-  }
-
-  #send {
-    width: 38px;
-    height: 38px;
-    margin-left: 8px;
-  }
-}
+/* Menu Button */
 
 .menu-btn {
   display: none;
-
   background: transparent;
   border: none;
-
   color: white;
   font-size: 24px;
-
   cursor: pointer;
 }
 
-/* MOBILE ONLY */
+/* Overlay */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  z-index: 900;
+}
+
+.overlay.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Mobile Drawer */
 
 @media (max-width: 700px) {
   body {
@@ -568,10 +467,9 @@ input:focus {
   }
 
   .app {
+    display: block;
     height: 100dvh;
   }
-
-  /* Sidebar hidden */
 
   .sidebar {
     position: fixed;
@@ -580,32 +478,35 @@ input:focus {
     left: -280px;
 
     width: 280px;
-    height: 100vh;
+    max-width: 80vw;
+
+    height: 100dvh;
+
+    padding: 20px;
+
+    overflow-y: auto;
+
+    background: #18181c;
+
+    border-right: 1px solid #2b2b32;
 
     z-index: 1000;
 
     transition: left 0.3s ease;
   }
 
-  /* Sidebar opened */
-
   .sidebar.open {
     left: 0;
   }
 
-  /* Main fills screen */
-
   .main {
     width: 100%;
-    height: 100vh;
+    height: 100dvh;
   }
-
-  /* Show menu button */
 
   .menu-btn {
     display: block;
-
-    margin-right: 10px;
+    margin-right: 12px;
   }
 
   header {
@@ -614,19 +515,43 @@ input:focus {
     padding: 0 15px;
   }
 
-  #chat {
-    padding: 15px;
-
-    padding-bottom: 90px;
+  header h3 {
+    font-size: 18px;
   }
 
-  /* Fixed message bar */
+  header span {
+    font-size: 12px;
+  }
+
+  #chat {
+    padding: 15px;
+    padding-bottom: 95px;
+  }
+
+  .welcome h1 {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .welcome p {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .big-orb {
+    width: 52px;
+    height: 52px;
+  }
+
+  .message {
+    max-width: 92%;
+    font-size: 14px;
+  }
 
   .input-container {
     position: fixed;
 
     bottom: 0;
-
     left: 0;
 
     width: 100%;
@@ -642,7 +567,47 @@ input:focus {
 
   #message {
     flex: 1;
-
     width: auto;
+  }
+
+  input {
+    width: 100%;
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  #send {
+    width: 44px;
+    height: 44px;
+
+    font-size: 18px;
+  }
+}
+
+/* Extra Small Phones */
+
+@media (max-width: 400px) {
+  .sidebar {
+    width: 260px;
+  }
+
+  header {
+    padding: 0 12px;
+  }
+
+  header h3 {
+    font-size: 16px;
+  }
+
+  .welcome h1 {
+    font-size: 22px;
+  }
+
+  .welcome p {
+    font-size: 13px;
+  }
+
+  .message {
+    max-width: 95%;
   }
 }
