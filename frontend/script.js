@@ -13,6 +13,11 @@ let chats = JSON.parse(localStorage.getItem("chats")) || [];
 
 let currentChat = null;
 
+const defaultMessage = {
+  role: "system",
+  content: "You are Aria, a helpful AI assistant.",
+};
+
 function showWelcome() {
   chat.innerHTML = `
 
