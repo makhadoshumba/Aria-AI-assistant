@@ -145,6 +145,7 @@ function createChat() {
   renderHistory();
 
   showWelcome();
+  sidebar.classList.remove("open");
 }
 
 function openChat(index) {
