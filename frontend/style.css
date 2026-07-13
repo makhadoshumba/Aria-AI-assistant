@@ -572,7 +572,7 @@ input:focus {
 
   input {
     width: 100%;
-    font-size: 14px;
+    font-size: 19px;
     padding: 14px;
   }
 
@@ -581,6 +581,20 @@ input:focus {
     height: 44px;
 
     font-size: 18px;
+  }
+  /* Bigger mobile input */
+
+  .input-container {
+    padding: 16px;
+  }
+
+  #message {
+    height: 56px;
+  }
+
+  #send {
+    width: 56px;
+    height: 56px;
   }
 }
 
