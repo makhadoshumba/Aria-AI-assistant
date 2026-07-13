@@ -547,3 +547,102 @@ input:focus {
     margin-left: 8px;
   }
 }
+
+.menu-btn {
+  display: none;
+
+  background: transparent;
+  border: none;
+
+  color: white;
+  font-size: 24px;
+
+  cursor: pointer;
+}
+
+/* MOBILE ONLY */
+
+@media (max-width: 700px) {
+  body {
+    overflow: hidden;
+  }
+
+  .app {
+    height: 100dvh;
+  }
+
+  /* Sidebar hidden */
+
+  .sidebar {
+    position: fixed;
+
+    top: 0;
+    left: -280px;
+
+    width: 280px;
+    height: 100vh;
+
+    z-index: 1000;
+
+    transition: left 0.3s ease;
+  }
+
+  /* Sidebar opened */
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Main fills screen */
+
+  .main {
+    width: 100%;
+    height: 100vh;
+  }
+
+  /* Show menu button */
+
+  .menu-btn {
+    display: block;
+
+    margin-right: 10px;
+  }
+
+  header {
+    height: 60px;
+
+    padding: 0 15px;
+  }
+
+  #chat {
+    padding: 15px;
+
+    padding-bottom: 90px;
+  }
+
+  /* Fixed message bar */
+
+  .input-container {
+    position: fixed;
+
+    bottom: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    padding: 12px;
+
+    background: #111114;
+
+    border-top: 1px solid #22222a;
+
+    z-index: 50;
+  }
+
+  #message {
+    flex: 1;
+
+    width: auto;
+  }
+}
