@@ -252,3 +252,7 @@ function showLoading() {
 
   return div;
 }
+
+menuBtn.onclick = () => {
+  sidebar.classList.toggle("open");
+};
