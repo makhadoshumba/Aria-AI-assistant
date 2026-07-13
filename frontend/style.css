@@ -589,12 +589,12 @@ input:focus {
   }
 
   #message {
-    height: 56px;
+    height: 52px;
   }
 
   #send {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
   }
 }
 
