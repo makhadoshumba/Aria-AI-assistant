@@ -5,6 +5,8 @@ const chat = document.getElementById("chat");
 const newChat = document.getElementById("newChat");
 const send = document.getElementById("send");
 const input = document.getElementById("message");
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.querySelector(".sidebar");
 
 let chats = JSON.parse(localStorage.getItem("chats")) || [];
 
