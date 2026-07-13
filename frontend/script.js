@@ -162,6 +162,7 @@ function openChat(index) {
   }
 
   renderHistory();
+  sidebar.classList.remove("open");
 }
 
 function addMessage(sender, text, saveMessage = true) {
