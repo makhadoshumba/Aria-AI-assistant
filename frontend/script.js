@@ -13,7 +13,7 @@ let chats = JSON.parse(localStorage.getItem("chats")) || [];
 
 let currentChat = null;
 
-const defaultMessage = {
+const systemMessage = {
   role: "system",
   content: "You are Aria, a helpful AI assistant.",
 };
@@ -38,7 +38,22 @@ function showWelcome() {
     `;
 }
 
-async function sendToAI(message) {
+async function sendToAI() {
+  const currentMessages = chats[currentChat].messages;
+
+  // Keep only the latest 20 messages
+  const recentMessages = currentMessages.slice(-20);
+
+  const messages = [
+    systemMessage,
+
+    ...recentMessages.map((msg) => ({
+      role: msg.sender === "user" ? "user" : "assistant",
+
+      content: msg.text,
+    })),
+  ];
+
   try {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -48,13 +63,15 @@ async function sendToAI(message) {
       },
 
       body: JSON.stringify({
-        message: message,
+        messages: messages,
       }),
     });
 
     const data = await response.json();
 
-    return data.reply;
+    console.log("Aria response:", data);
+
+    return data.reply || "Aria returned no response.";
   } catch (error) {
     console.error(error);
 
@@ -236,7 +253,7 @@ send.onclick = async () => {
 
   chat.scrollTop = chat.scrollHeight;
 
-  const reply = await sendToAI(text);
+  const reply = await sendToAI();
 
   loadingMessage.remove();
 

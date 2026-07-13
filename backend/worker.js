@@ -6,7 +6,7 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // Handle browser preflight request
+    // Handle preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: corsHeaders,
@@ -29,12 +29,13 @@ export default {
     try {
       const body = await request.json();
 
-      const userMessage = body.message;
+      // NEW: receive conversation history
+      const messages = body.messages;
 
-      if (!userMessage) {
+      if (!messages || !Array.isArray(messages)) {
         return Response.json(
           {
-            error: "Message is required",
+            error: "Messages are required",
           },
           {
             status: 400,
@@ -60,17 +61,7 @@ export default {
           body: JSON.stringify({
             model: "llama-3.3-70b-versatile",
 
-            messages: [
-              {
-                role: "system",
-                content: "You are Aria, a helpful AI assistant.",
-              },
-
-              {
-                role: "user",
-                content: userMessage,
-              },
-            ],
+            messages: messages,
           }),
         },
       );
@@ -79,7 +70,6 @@ export default {
 
       console.log("Groq response:", data);
 
-      // Handle Groq errors
       if (!groqResponse.ok) {
         return Response.json(
           {
@@ -97,6 +87,7 @@ export default {
         {
           reply: data.choices[0].message.content,
         },
+
         {
           headers: corsHeaders,
         },
@@ -108,6 +99,7 @@ export default {
         {
           error: error.message,
         },
+
         {
           status: 500,
           headers: corsHeaders,
