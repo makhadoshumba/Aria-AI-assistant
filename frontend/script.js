@@ -146,7 +146,9 @@ function createChat() {
   renderHistory();
 
   showWelcome();
+
   sidebar.classList.remove("open");
+  overlay.classList.remove("show");
 }
 
 function openChat(index) {
@@ -164,7 +166,9 @@ function openChat(index) {
   }
 
   renderHistory();
+
   sidebar.classList.remove("open");
+  overlay.classList.remove("show");
 }
 
 function addMessage(sender, text, saveMessage = true) {
