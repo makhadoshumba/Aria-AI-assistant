@@ -7,6 +7,7 @@ const send = document.getElementById("send");
 const input = document.getElementById("message");
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.querySelector(".sidebar");
+const overlay = document.getElementById("overlay");
 
 let chats = JSON.parse(localStorage.getItem("chats")) || [];
 
@@ -257,4 +258,6 @@ function showLoading() {
 
 menuBtn.onclick = () => {
   sidebar.classList.toggle("open");
+
+  overlay.classList.toggle("show");
 };
