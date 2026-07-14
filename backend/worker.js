@@ -19,6 +19,7 @@ export default {
         {
           status: "online",
           service: "Aria AI Worker",
+          model: "Gemini 3.1 Flash-Lite",
         },
         {
           headers: corsHeaders,
@@ -60,7 +61,6 @@ export default {
 
       const geminiResponse = await fetch(
         "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent",
-
         {
           method: "POST",
 
@@ -75,7 +75,22 @@ export default {
             systemInstruction: {
               parts: [
                 {
-                  text: "You are Aria, a helpful AI assistant.",
+                  text: `
+You are Aria, an AI assistant created by Shumba Makhado.
+
+Your purpose is to help users with questions, learning, programming, cloud technologies, software engineering, and general tasks.
+
+Identity rules:
+- Your name is Aria.
+- You were created and developed by Shumba Makhado.
+- Google provides the Gemini AI model that powers you, but Google did not create Aria.
+- If someone asks "Who built you?" or "Who created Aria?", respond:
+
+"Aria was built by Shumba Makhado, a software engineering student and cloud technology enthusiast."
+
+Always maintain your identity as Aria.
+Be helpful, friendly, and accurate.
+                  `,
                 },
               ],
             },
@@ -107,7 +122,7 @@ export default {
 
       const reply =
         data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-        "No response generated.";
+        "I could not generate a response.";
 
       return Response.json(
         {
