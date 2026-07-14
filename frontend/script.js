@@ -46,10 +46,8 @@ async function sendToAI() {
 
   const messages = [
     systemMessage,
-
     ...recentMessages.map((msg) => ({
-      role: msg.sender === "user" ? "user" : "assistant",
-
+      role: msg.sender === "user" ? "user" : "model",
       content: msg.text,
     })),
   ];
@@ -63,15 +61,19 @@ async function sendToAI() {
       },
 
       body: JSON.stringify({
-        messages: messages,
+        messages,
       }),
     });
 
     const data = await response.json();
 
-    console.log("Aria response:", data);
+    console.log("Worker response:", data);
 
-    return data.reply || "Aria returned no response.";
+    if (!response.ok) {
+      return data.error || "Worker returned an error.";
+    }
+
+    return data.reply || "No response received from Aria.";
   } catch (error) {
     console.error(error);
 
