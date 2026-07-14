@@ -6,7 +6,7 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // Handle preflight
+    // Handle preflight requests
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: corsHeaders,
@@ -29,13 +29,12 @@ export default {
     try {
       const body = await request.json();
 
-      // NEW: receive conversation history
       const messages = body.messages;
 
       if (!messages || !Array.isArray(messages)) {
         return Response.json(
           {
-            error: "Messages are required",
+            error: "Messages are required.",
           },
           {
             status: 400,
@@ -44,62 +43,70 @@ export default {
         );
       }
 
-      console.log("Sending request to Groq...");
-      console.log("API Key exists:", !!env.GROQ_API_KEY);
+      console.log("Sending request to Gemini...");
+      console.log("API Key exists:", !!env.GEMINI_API_KEY);
 
-      const groqResponse = await fetch(
-        "https://api.groq.com/openai/v1/chat/completions",
+      // Convert OpenAI message format to Gemini format
+      const contents = messages.map((message) => ({
+        role: message.role === "assistant" ? "model" : "user",
+        parts: [
+          {
+            text: message.content,
+          },
+        ],
+      }));
+
+      const geminiResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`,
         {
           method: "POST",
 
           headers: {
-            Authorization: `Bearer ${env.GROQ_API_KEY}`,
-
             "Content-Type": "application/json",
           },
 
           body: JSON.stringify({
-            model: "llama-3.3-70b-versatile",
-
-            messages: messages,
+            contents,
           }),
         },
       );
 
-      const data = await groqResponse.json();
+      const data = await geminiResponse.json();
 
-      console.log("Groq response:", data);
+      console.log("Gemini response:", data);
 
-      if (!groqResponse.ok) {
+      if (!geminiResponse.ok) {
         return Response.json(
           {
-            error: "Groq API error",
+            error: "Gemini API error",
             details: data,
           },
           {
-            status: groqResponse.status,
+            status: geminiResponse.status,
             headers: corsHeaders,
           },
         );
       }
 
+      const reply =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ??
+        "Sorry, I couldn't generate a response.";
+
       return Response.json(
         {
-          reply: data.choices[0].message.content,
+          reply,
         },
-
         {
           headers: corsHeaders,
         },
       );
     } catch (error) {
-      console.log("Worker error:", error);
+      console.error("Worker error:", error);
 
       return Response.json(
         {
           error: error.message,
         },
-
         {
           status: 500,
           headers: corsHeaders,
