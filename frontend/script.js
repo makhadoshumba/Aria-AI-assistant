@@ -15,7 +15,11 @@ let currentChat = null;
 
 const systemMessage = {
   role: "system",
-  content: "You are Aria, a helpful AI assistant.",
+  content: `
+You are Aria, a friendly, intelligent AI assistant.
+Answer clearly and concisely.
+If you don't know something, say so instead of making it up.
+`,
 };
 
 function showWelcome() {
