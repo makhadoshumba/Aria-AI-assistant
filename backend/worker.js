@@ -46,8 +46,18 @@ export default {
       console.log("Sending request to Gemini...");
       console.log("API Key exists:", !!env.GEMINI_API_KEY);
 
-      // Convert OpenAI message format to Gemini format
-      const contents = messages.map((message) => ({
+      // Extract system prompt
+      const systemMessage = messages.find(
+        (message) => message.role === "system",
+      );
+
+      // Remove system prompt from conversation
+      const conversation = messages.filter(
+        (message) => message.role !== "system",
+      );
+
+      // Convert OpenAI format to Gemini format
+      const contents = conversation.map((message) => ({
         role: message.role === "assistant" ? "model" : "user",
         parts: [
           {
@@ -55,6 +65,20 @@ export default {
           },
         ],
       }));
+
+      const requestBody = {
+        contents,
+      };
+
+      if (systemMessage) {
+        requestBody.systemInstruction = {
+          parts: [
+            {
+              text: systemMessage.content,
+            },
+          ],
+        };
+      }
 
       const geminiResponse = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`,
@@ -65,9 +89,7 @@ export default {
             "Content-Type": "application/json",
           },
 
-          body: JSON.stringify({
-            contents,
-          }),
+          body: JSON.stringify(requestBody),
         },
       );
 
@@ -105,7 +127,8 @@ export default {
 
       return Response.json(
         {
-          error: error.message,
+          error: "Worker error",
+          details: error.message,
         },
         {
           status: 500,
