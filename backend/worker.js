@@ -6,7 +6,7 @@ export default {
       "Access-Control-Allow-Headers": "Content-Type",
     };
 
-    // Handle preflight requests
+    // Handle CORS preflight
     if (request.method === "OPTIONS") {
       return new Response(null, {
         headers: corsHeaders,
@@ -34,7 +34,7 @@ export default {
       if (!messages || !Array.isArray(messages)) {
         return Response.json(
           {
-            error: "Messages are required.",
+            error: "Messages are required",
           },
           {
             status: 400,
@@ -43,53 +43,48 @@ export default {
         );
       }
 
-      console.log("Sending request to Gemini...");
-      console.log("API Key exists:", !!env.GEMINI_API_KEY);
+      console.log("Gemini key exists:", !!env.GEMINI_API_KEY);
 
-      // Extract system prompt
-      const systemMessage = messages.find(
-        (message) => message.role === "system",
-      );
+      // Convert OpenAI format -> Gemini format
+      const contents = messages
+        .filter((msg) => msg.role !== "system")
+        .map((msg) => ({
+          role: msg.role === "assistant" ? "model" : "user",
 
-      // Remove system prompt from conversation
-      const conversation = messages.filter(
-        (message) => message.role !== "system",
-      );
-
-      // Convert OpenAI format to Gemini format
-      const contents = conversation.map((message) => ({
-        role: message.role === "assistant" ? "model" : "user",
-        parts: [
-          {
-            text: message.content,
-          },
-        ],
-      }));
-
-      const requestBody = {
-        contents,
-      };
-
-      if (systemMessage) {
-        requestBody.systemInstruction = {
           parts: [
             {
-              text: systemMessage.content,
+              text: msg.content,
             },
           ],
-        };
-      }
+        }));
 
       const geminiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${env.GEMINI_API_KEY}`,
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+
         {
           method: "POST",
 
           headers: {
             "Content-Type": "application/json",
+            "x-goog-api-key": env.GEMINI_API_KEY,
           },
 
-          body: JSON.stringify(requestBody),
+          body: JSON.stringify({
+            contents: contents,
+
+            systemInstruction: {
+              parts: [
+                {
+                  text: "You are Aria, a helpful AI assistant.",
+                },
+              ],
+            },
+
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 2048,
+            },
+          }),
         },
       );
 
@@ -111,25 +106,26 @@ export default {
       }
 
       const reply =
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ??
-        "Sorry, I couldn't generate a response.";
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response generated.";
 
       return Response.json(
         {
           reply,
         },
+
         {
           headers: corsHeaders,
         },
       );
     } catch (error) {
-      console.error("Worker error:", error);
+      console.error(error);
 
       return Response.json(
         {
-          error: "Worker error",
-          details: error.message,
+          error: error.message,
         },
+
         {
           status: 500,
           headers: corsHeaders,
