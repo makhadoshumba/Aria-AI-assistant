@@ -59,7 +59,7 @@ export default {
         }));
 
       const geminiResponse = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent",
 
         {
           method: "POST",
@@ -70,7 +70,7 @@ export default {
           },
 
           body: JSON.stringify({
-            contents: contents,
+            contents,
 
             systemInstruction: {
               parts: [
@@ -113,19 +113,17 @@ export default {
         {
           reply,
         },
-
         {
           headers: corsHeaders,
         },
       );
     } catch (error) {
-      console.error(error);
+      console.error("Worker error:", error);
 
       return Response.json(
         {
           error: error.message,
         },
-
         {
           status: 500,
           headers: corsHeaders,
