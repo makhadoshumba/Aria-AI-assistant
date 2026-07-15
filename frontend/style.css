@@ -580,7 +580,7 @@ input:focus {
     width: 44px;
     height: 44px;
 
-    font-size: 18px;
+    font-size: 20px;
   }
   /* Bigger mobile input */
 
@@ -595,6 +595,10 @@ input:focus {
   #send {
     width: 52px;
     height: 52px;
+  }
+
+  .brand-link {
+    text-align: center;
   }
 }
 
