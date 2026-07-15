@@ -676,7 +676,7 @@ input:focus {
 
   transform-style: preserve-3d;
 
-  animation: sphere-rotate 6s linear infinite;
+  animation: sphere-rotate 10s linear infinite;
 }
 
 .ring {
