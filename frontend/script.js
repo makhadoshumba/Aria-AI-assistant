@@ -25,19 +25,24 @@ If you don't know something, say so instead of making it up.
 function showWelcome() {
   chat.innerHTML = `
 
-    <div class="welcome">
+<div class="welcome">
+            <div class="sphere-stage">
+              <div class="sphere-core"></div>
 
-        <div class="big-orb"></div>
+              <div class="sphere-rings">
+                <div class="ring m0"></div>
+                <div class="ring m1"></div>
+                <div class="ring m2"></div>
+                <div class="ring m3"></div>
+                <div class="ring lat1"></div>
+                <div class="ring lat2"></div>
+              </div>
+            </div>
 
-        <h1>
-            Where should we begin?
-        </h1>
+            <h1>Where should we begin?</h1>
 
-        <p>
-            Ask anything and Aria will help you.
-        </p>
-
-    </div>
+            <p>Ask anything and Aria will help you.</p>
+          </div>
 
     `;
 }
