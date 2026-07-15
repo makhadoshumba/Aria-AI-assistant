@@ -639,8 +639,8 @@ input:focus {
 
 .sphere-stage {
   position: relative;
-  width: 65px;
-  height: 65px;
+  width: 90px;
+  height: 95px;
   margin-bottom: 25px;
   perspective: 260px;
 }
