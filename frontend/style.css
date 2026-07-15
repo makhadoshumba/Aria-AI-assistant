@@ -42,8 +42,7 @@ body {
   gap: 10px;
 }
 
-.orb,
-.big-orb {
+.orb {
   background: linear-gradient(135deg, #8f7fff, #6d5ae6);
 
   border-radius: 50%;
@@ -157,16 +156,6 @@ header span {
   justify-content: center;
 
   align-items: center;
-}
-
-.big-orb {
-  width: 65px;
-
-  height: 65px;
-
-  margin-bottom: 25px;
-
-  box-shadow: 0 0 40px rgba(143, 127, 255, 0.5);
 }
 
 .welcome h1 {
