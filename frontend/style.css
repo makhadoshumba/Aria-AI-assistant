@@ -656,3 +656,114 @@ input:focus {
   visibility: visible;
   pointer-events: auto;
 }
+
+/* ===========================
+   ARIA 3D AI CORE SPHERE
+=========================== */
+
+.sphere-stage {
+  position: relative;
+  width: 65px;
+  height: 65px;
+  margin-bottom: 25px;
+  perspective: 260px;
+}
+
+.sphere-core {
+  position: absolute;
+  inset: 0;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 32% 28%,
+    #efeaff 0%,
+    #b8a9ff 30%,
+    #8f7fff 55%,
+    #5a4fd6 80%,
+    #362a8f 100%
+  );
+
+  box-shadow:
+    0 0 40px rgba(143, 127, 255, 0.5),
+    0 0 80px rgba(109, 90, 230, 0.35),
+    inset -10px -10px 18px rgba(25, 15, 80, 0.45),
+    inset 6px 6px 14px rgba(255, 255, 255, 0.3);
+
+  animation: sphere-pulse 3s ease-in-out infinite;
+}
+
+.sphere-rings {
+  position: absolute;
+
+  inset: 0;
+
+  transform-style: preserve-3d;
+
+  animation: sphere-rotate 6s linear infinite;
+}
+
+.ring {
+  position: absolute;
+
+  inset: 0;
+
+  border-radius: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.m0 {
+  transform: rotateY(0deg);
+}
+
+.m1 {
+  transform: rotateY(45deg);
+}
+
+.m2 {
+  transform: rotateY(90deg);
+}
+
+.m3 {
+  transform: rotateY(135deg);
+}
+
+.lat1 {
+  transform: rotateX(60deg);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.lat2 {
+  transform: rotateX(120deg);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+@keyframes sphere-rotate {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes sphere-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 40px rgba(143, 127, 255, 0.5),
+      0 0 80px rgba(109, 90, 230, 0.35),
+      inset -10px -10px 18px rgba(25, 15, 80, 0.45),
+      inset 6px 6px 14px rgba(255, 255, 255, 0.3);
+  }
+
+  50% {
+    box-shadow:
+      0 0 70px rgba(143, 127, 255, 0.9),
+      0 0 120px rgba(109, 90, 230, 0.45),
+      inset -10px -10px 18px rgba(25, 15, 80, 0.45),
+      inset 6px 6px 14px rgba(255, 255, 255, 0.3);
+  }
+}
