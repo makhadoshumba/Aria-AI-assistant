@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <!-- Defines your exact 135-degree linear gradient -->
+    <linearGradient id="favGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8f7fff" />
+      <stop offset="100%" stop-color="#6d5ae6" />
+    </linearGradient>
+  </defs>
+  <!-- A square that perfectly fills the 32x32 viewbox -->
+  <rect width="32" height="32" fill="url(#favGradient)" />
+</svg>
